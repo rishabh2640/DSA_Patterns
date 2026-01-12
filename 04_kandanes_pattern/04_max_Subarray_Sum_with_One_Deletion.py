@@ -18,44 +18,23 @@ class Solution:
         oneDel = float('-inf')
         res = arr[0]
 
-class Solution:
-    def maximumSum(self, arr: List[int]) -> int:
-        noDel = arr[0]
-        oneDel = float('-inf')
-        res = arr[0]
-
         for i in range( 1, len(arr) ):
 
-            if oneDel == float( '-inf' ):
-                v1 = arr[i]
-            else:
-                v1 = oneDel + arr[i]
-            
-            oneDel = max ( v1, noDel )
+            prevNoDel = noDel
+            prevOneDel = oneDel
 
             noDel = max ( noDel + arr[i], arr[i] )
 
-            res = max ( res, oneDel, noDel )
+            if prevOneDel == float( '-inf' ):
+                v1 = arr[i]
+            else:
+                v1 = prevOneDel + arr[i]
+            
+            oneDel = max ( v1, prevNoDel )
+
+            res = max ( res ,oneDel, noDel )
         
         return res
-
-        # for i in range( 1, len(arr) ):
-
-        #     prevNoDel = noDel
-        #     prevOneDel = oneDel
-
-        #     noDel = max ( noDel + arr[i], arr[i] )
-
-        #     if prevOneDel == float( '-inf' ):
-        #         v1 = arr[i]
-        #     else:
-        #         v1 = prevOneDel + arr[i]
-            
-        #     oneDel = max ( v1, prevNoDel )
-
-        #     res = max ( res ,oneDel, noDel )
-        
-        # return res
 
 solver = Solution()
 # a = [1,-2,0,3]

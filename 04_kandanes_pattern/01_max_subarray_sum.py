@@ -22,7 +22,6 @@ class Solution:
             v2 = nums[i]
             bestend = max(v1, v2)
             ans = max(ans, bestend)
-            
         return ans
 
 nums = [-2,1,-3,4,-1,2,1,-5,4]
