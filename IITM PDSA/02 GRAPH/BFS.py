@@ -87,18 +87,42 @@ def BFS_parentTracking(AList, j):
         visited[i] = False
         parent[i] = -1
 
-    q = Queue()
+    qu = Queue()
     visited[j] = True
     
-    q.addq(j)
+    qu.addq(j)
 
-    while not q.isempty():
-        v = q.delq()
+    while not qu.isempty():
+        v = qu.delq()
         for k in AList[v]:
             if not visited[k]:
                 visited[k] = True
                 parent[k] = v
-                q.addq(k)
+                qu.addq(k)
     return visited,parent
 
 print(BFS_parentTracking(AList, 0))
+
+
+
+def BFSListPathLevel(AList, j):
+    level, parent = {}, {}
+    for i in AList.keys():
+        level[i] = -1
+        parent[i] = -1
+    
+    que = Queue()
+    level[j] = 0
+    que.addq(j)
+
+    while not que.isempty():
+        v = que.delq()
+        for k in AList[v]:
+            if level[k] == -1:
+                level[k] = level[v] + 1
+                parent[k] = v
+                que.addq(k)
+    return level,parent
+
+print(BFSListPathLevel(AList, 0))
+
