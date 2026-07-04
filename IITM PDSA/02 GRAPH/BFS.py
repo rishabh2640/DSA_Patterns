@@ -70,3 +70,35 @@ def BFS(AMat, j):
     return (visited)
 
 print(BFS(adjacency_matrix,2))
+
+## Tracking Parent while BFS
+
+AList = {
+    0: [1, 2],
+    1: [0, 3],
+    2: [0, 3],
+    3: [1, 2] 
+}
+
+def BFS_parentTracking(AList, j):
+    visited, parent = {}, {}
+
+    for i in AList.keys():
+        visited[i] = False
+        parent[i] = -1
+
+    q = Queue()
+    visited[j] = True
+    
+    q.addq(j)
+
+    while not q.isempty():
+        v = q.delq()
+        for k in AList[v]:
+            if not visited[k]:
+                visited[k] = True
+                parent[k] = v
+                q.addq(k)
+    return visited,parent
+
+print(BFS_parentTracking(AList, 0))
