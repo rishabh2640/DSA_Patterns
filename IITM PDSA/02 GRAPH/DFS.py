@@ -66,3 +66,25 @@ DFSInitGlobal(adjacency_matrix); DFSGlobal(adjacency_matrix, 0);
 print(visited1, parent1)
 
 
+# DFS with Adjacency List : global (visited, parent) version
+
+visited2, parent2 = {},{}
+
+def DFSInitGlobal2(AList):
+    for i in AList.keys():
+        visited2[i] = False
+        parent2[i] = -1
+    return
+
+def DFSGlobal2(AList, v):
+    visited2[v] = True
+
+    for k in AList[v]:
+        if not visited2[k]:
+            parent2[k] = v
+            DFSGlobal2(AList, k)
+    return
+
+DFSInitGlobal2(AList)
+DFSGlobal2(AList, 0)
+print(visited2, parent2)
