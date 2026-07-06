@@ -125,4 +125,3 @@ def BFSListPathLevel(AList, j):
     return level,parent
 
 print(BFSListPathLevel(AList, 0))
-
