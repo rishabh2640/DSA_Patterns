@@ -31,7 +31,7 @@ def topoSort(AMat):
     
     return topoSortList
 
-print(topoSort(Adj_Mat))
+print("Topological Sorting with Adj. Matrix: \n",topoSort(Adj_Mat))
 
 
 # Directed Acyclic Graph (DAG) : Topological Sorting with Adjacency List [ Time complexity of O( m+n )]
@@ -46,6 +46,7 @@ adj_list = {
     6: [],
     7: []
 }
+
 def topoSortAdjList(AList):
     indegree2, topoSortList2 = {}, []
     zeroDegreeQ = Queue()
@@ -56,6 +57,9 @@ def topoSortAdjList(AList):
     for u in AList.keys():
         for v in AList[u]:
             indegree2[v] = indegree2[v] + 1
+        # if indegree2[u] == 0: # we can also check here the condition for adding a vertex in queue
+        #     zeroDegreeQ.addq(u)
+    
     
     for u in AList.keys():
         if indegree2[u] == 0:
@@ -72,7 +76,31 @@ def topoSortAdjList(AList):
                 zeroDegreeQ.addq(k)
     return topoSortList2
 
+print("\nTopological Sorting using Adj. List : \n",topoSortAdjList(adj_list),"\n")
 
+# now we want to find out the longest path in a DAG with Adjacency List
 
-print(topoSortAdjList(adj_list))
+def longestPathList(AList):
+    indegree, longPath = {}, {}
+    zeroDegQ = Queue()
 
+    for i in AList.keys():
+        indegree[i], longPath[i] = 0, 0
+
+    for u in AList.keys():
+        for v in AList[u]:
+            indegree[v] = indegree[v] + 1
+        if indegree[u] == 0:
+            zeroDegQ.addq(u)
+    
+    while not zeroDegQ.isempty():
+        j = zeroDegQ.delq()
+        indegree[j] -= 1
+        for k in AList[j]:
+            indegree[k] -= 1
+            longPath[k] = max(longPath[k], longPath[j] + 1)
+            if indegree[k] == 0:
+                zeroDegQ.addq(k)
+    return longPath
+
+print("Longgest Path List : \n",longestPathList(adj_list))
