@@ -103,4 +103,4 @@ def longestPathList(AList):
                 zeroDegQ.addq(k)
     return longPath
 
-print("Longgest Path List : \n",longestPathList(adj_list))
+print("Longest Path List : \n",longestPathList(adj_list))
