@@ -2,7 +2,7 @@
 
 # Write a Python function findMasterTank(tanks, pipes) that accepts arguments tanks which is a list of tanks, and pipes which is a list of tuples that represents connectivity through pipes, between tanks. Each tuple (i,j) in pipes represents a pipe such that, water can flow from tank i to tank j but not vice versa. Your function should find a master tank and return the number representing it, else should return 0 if no master tank exists in the system. If there are more than one master tank, return any one of them. Try to implement an algorithm that executes in linear time (O(n+m)O(n+m)).
 
-v = [1, 2, 3, 4, 5, 6, 7]
+v = [1, 2, 3, 4, 5, 6, 7]  
 numOfEdges = 9
 e = [
     (1, 3),
@@ -27,35 +27,43 @@ def findMasterTank(tanks, pipes):
     
     from collections import deque
 
-    visited = set()
+    visited = {tank: False for tank in tanks}
     candidate = None
 
     for tank in tanks:
-        if tank not in visited:
+        if not visited[tank]:
             q = deque([tank])
             candidate = tank
-            visited.add(tank)
+            visited[tank] = True
 
             while q:
                 curr = q.popleft()
                 for neighbor in AList[curr]:
-                    if neighbor not in visited:
-                        visited.add(neighbor)
+                    if not visited[neighbor]:
+                        visited[neighbor] = True
                         q.append(neighbor)
+    
+    for u, v in pipes:
+        if v == candidate:
+            return 0        
 
     # verifying that this candidate tank actually reaches all tanks or not.
-    visited.clear()
+    for tank in tanks:
+        visited[tank] = False
+    
     q = deque([candidate])
-    visited.add(candidate)
+    visited[candidate] = True
+    reachable = 1
 
     while q:
         curr = q.popleft()
         for neighbor in AList[curr]:
-            if neighbor not in visited:
-                visited.add(neighbor)
+            if not visited[neighbor]:
+                visited[neighbor] = True
                 q.append(neighbor)
+                reachable += 1
     
-    if len(visited) == len(tanks): # this condition fails that means there is a disjoint component in it or there isn't any such tank
+    if reachable == len(tanks): # this condition fails that means there is a disjoint component in it or there isn't any such tank
         return candidate
     
     return 0
