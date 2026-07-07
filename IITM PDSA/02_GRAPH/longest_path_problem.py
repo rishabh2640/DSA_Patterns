@@ -110,35 +110,36 @@ def longJourney(AList):
 
 def longJourney(AList):
     """
-    DAG (Directed Acyclic Graph) mein longest path find karne ka function.
+    Function to find the longest path in a DAG (Directed Acyclic Graph).
     """
-    # Memoization dictionary jo har city ka longest possible path store karegi
+    # Memoization dictionary to store the longest possible path for each city
     memo = {}
     
     def dfs(city):
-        # Agar is city ka longest path pehle se pata hai, toh wahi return kardo
+        # If the longest path for this city is already known, return it
         if city in memo:
             return memo[city]
             
         max_path = []
-        # Padosi cities (neighbors) mein traverse karo
-        for padosi in AList.get(city, []):
-            path = dfs(padosi)
-            # Agar naya path purane max_path se lamba hai, toh isko update karo
+        # Traverse through neighboring cities
+        for neighbor in AList.get(city, []):
+            path = dfs(neighbor)
+            # If the new path is longer than the old max_path, update it
             if len(path) > len(max_path):
                 max_path = path
                 
-        # Current city ko longest sub-path ke start mein jod do
+        # Add the current city to the start of the longest sub-path
         memo[city] = [city] + max_path
         return memo[city]
         
-    sabse_lamba_raasta = []
+    longest_route = []
     
-    # Graph ki har ek city ko starting point maan kar check karo
+    # Check by considering every city in the graph as a starting point
     for city in AList:
         current_path = dfs(city)
-        # Jiska route sabse lamba ho usko save kar lo
-        if len(current_path) > len(sabse_lamba_raasta):
-            sabse_lamba_raasta = current_path
+        # Save the one with the longest route
+        if len(current_path) > len(longest_route):
+            longest_route = current_path
             
-    return sabse_lamba_raasta
+    return longest_route
+
