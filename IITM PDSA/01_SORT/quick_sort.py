@@ -1,3 +1,9 @@
+# How it works: It picks a "pivot" element from the array and partitions the other elements into two sub-arrays: those less than the pivot and those greater than the pivot. The sub-arrays are then sorted recursively.
+
+# Best for: General-purpose sorting in most programming languages. When implemented well, it is typically faster in practice than Merge Sort.
+
+# Key Trait: It sorts "in-place" (requiring very little extra memory) but its worst-case performance can be slow if a poor pivot is repeatedly chosen.
+
 # quick sort is stable sorting and at worst case time complexity is O(n^2) [when list is already sorted, and pivot has been picked as min or max], but in average case it takes O(nlogn) TC, so, most of the cases, it works at it best, even better then merge sort
 
 def partition(L, lower, upper):
