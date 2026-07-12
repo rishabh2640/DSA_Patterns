@@ -27,7 +27,7 @@ def merge(left, right):
     i = j = 0
 
     # Loop as long as both lists still have elements to compare
-    while i < len(left) and j < right:
+    while i < len(left) and j < len(right):
         if left[i] < right[j]:
             # If the left element is smaller, add it to the result list
             result.append(left[i])
