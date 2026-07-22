@@ -26,7 +26,7 @@ def FiberLink(distance_map):
     # This loop runs exactly that many times to build the complete network.
     for i in range(1, len(distance_map.keys())):
         
-        # LINES 13-14: Reset minimum distance and next vertex trackers for this iteration.
+        # Reset minimum distance and next vertex trackers for this iteration.
         minDist = float('inf')
         nextV = None
         
